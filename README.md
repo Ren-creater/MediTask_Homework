@@ -1,64 +1,64 @@
 # MediTask Take Away Homework
 
-# FRONTEND: flutter
-# BACKEND: Django and Django REST framework
-# DATABASE: SQLite
+FRONTEND: flutter
+BACKEND: Django and Django REST framework
+DATABASE: SQLite
 
 
 # 1. HOW TO SET UP (WSL)
 
-# BACKEND:
+BACKEND:
 
-cd homework/backend
+`cd homework/backend`
 
 # Create a virtual environment to isolate our package dependencies locally
-python3 -m venv env # original env is present, so can skip this
-source env/bin/activate  # On Windows use `env\Scripts\activate`
+`python3 -m venv env` original env is present, so can skip this
+`source env/bin/activate`  # On Windows use `env\Scripts\activate`
 
 # Install Django and Django REST framework into the virtual environment
-pip install djangorestframework
+`pip install djangorestframework`
 
-# FRONTEND:
+FRONTEND:
 
-cd homeowrk/frontend
+`cd homeowrk/frontend`
 
 # add http:, mockito:, build_runner to pubspec.yaml
-flutter pub add http dev:mockito dev:build_runner
+`flutter pub add http dev:mockito dev:build_runner`
 
 
 # 2. HOW TO RUN
 
-# BACKEND:
+BACKEND:
 
-cd homework/backend
+`cd homework/backend`
 
 # activate virtual enviornment
-./env/Scripts/activate
+`./env/Scripts/activate`
 
-cd meditask
+`cd meditask`
 
-python manage.py runserver
+`python manage.py runserver`
 
-# FRONTEND:
+FRONTEND:
 
-cd homework/fronend
+`cd homework/fronend`
 
 open with android studio and run with emulator
 OR
-flutter run
+`flutter run`
 
 # 3. UNIT TESTS
-# BACKEND
-cd homework/backend
-./env/Scripts/activate
-cd meditask
-python manage.py test
+BACKEND
+`cd homework/backend`
+`./env/Scripts/activate`
+`cd meditask`
+`python manage.py test`
 
-#FRONTEND:
+FRONTEND:
 # generate the mocks
-dart run build_runner build
+`dart run build_runner build`
 
-cd homework/frontend
-flutter test
+`cd homework/frontend`
+`flutter test`
 
 
