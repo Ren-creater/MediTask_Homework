@@ -17,7 +17,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   // variable to call and store future list of appointments
-  Future<List<Appointment>> appointmentsFuture = listAppointments(http.Client());
+  late Future<List<Appointment>> appointmentsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    refreshPage();
+  }
+
+  // refreshing the page, fetching the appointments from the server
+  void refreshPage() {
+    setState(() {
+      appointmentsFuture = listAppointments(http.Client());
+    });
+  }
 
   // build function
   @override
@@ -53,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
             MaterialPageRoute(
               builder: (context) => const CreateScreen(),
             ),
-          );
+          ).then((res)=>refreshPage());
         },
         tooltip: 'create appointment',
         child: const Icon(Icons.add),
@@ -89,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(
                       builder: (context) => DetailScreen(id: appointment.id),
                     ),
-                  );
+                  ).then((res)=>refreshPage());
                 },
               )])
         );

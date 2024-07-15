@@ -1,7 +1,9 @@
 # MediTask Take Away Homework
 
 FRONTEND: flutter
+
 BACKEND: Django and Django REST framework
+
 DATABASE: SQLite
 
 
@@ -11,18 +13,18 @@ BACKEND:
 
 `cd homework/backend`
 
-# Create a virtual environment to isolate our package dependencies locally
+Create a virtual environment to isolate our package dependencies locally
 `python3 -m venv env` original env is present, so can skip this
 `source env/bin/activate`  # On Windows use `env\Scripts\activate`
 
-# Install Django and Django REST framework into the virtual environment
+Install Django and Django REST framework into the virtual environment
 `pip install djangorestframework`
 
 FRONTEND:
 
 `cd homeowrk/frontend`
 
-# add http:, mockito:, build_runner to pubspec.yaml
+add http:, mockito:, build_runner to pubspec.yaml
 `flutter pub add http dev:mockito dev:build_runner`
 
 
@@ -32,7 +34,7 @@ BACKEND:
 
 `cd homework/backend`
 
-# activate virtual enviornment
+activate virtual enviornment
 `./env/Scripts/activate`
 
 `cd meditask`
@@ -55,10 +57,8 @@ BACKEND
 `python manage.py test`
 
 FRONTEND:
-# generate the mocks
+generate the mocks
 `dart run build_runner build`
 
 `cd homework/frontend`
 `flutter test`
-
-

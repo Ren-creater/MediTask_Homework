@@ -38,6 +38,34 @@ class _CreateScreenState extends State<CreateScreen> {
     }
   }
 
+  void _submitForm() {
+    // Check if the form is valid
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save(); // Save the form data
+      createAppointment(
+          http.Client(),
+          Appointment(
+              "no id",
+              patient,
+              doctor,
+              "${selectedDate!.toLocal()}".split(' ')[0],
+              selectedTime.format(context))
+      );
+      Navigator.pop(context);
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Created'),
+          content: const Text('Appointment created'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {Navigator.pop(context, 'OK');},
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );}}
+
   @override
   Widget build(BuildContext context) {
     Appointment appointment =
@@ -59,25 +87,40 @@ class _CreateScreenState extends State<CreateScreen> {
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Patient Name'),
                     keyboardType: TextInputType.name,
-                    onFieldSubmitted: (value) {
+                    onSaved: (value) {
                       setState(() {
-                        patient = value;
+                        patient = value!;
                       });
                     },
-
+                      validator: (value) {
+                        // Validation function for the name field
+                        if (value!.isEmpty) {
+                          return "Please enter patient's name.";
+                          // Return an error message if the name is empty
+                        }
+                        return null; // Return null if the name is valid
+                      },
                   ),
                   TextFormField(
                     decoration: const InputDecoration(labelText: 'Doctor Name'),
                     keyboardType: TextInputType.name,
-                    onFieldSubmitted: (value) {
+                    onSaved: (value) {
                       setState(() {
-                        doctor = value;
+                        doctor = value!;
                       });
+                    },
+                    validator: (value) {
+                      // Validation function for the name field
+                      if (value!.isEmpty) {
+                        return "Please enter doctor's name.";
+                        // Return an error message if the name is empty
+                      }
+                      return null; // Return null if the name is valid
                     },
                   ),
                   InputDatePickerFormField(
                     acceptEmptyDate: false,
-                    errorInvalidText: "invalid text",
+                    errorInvalidText: "invalid date",
                     firstDate: firstDate,
                     lastDate: lastDate,
                     onDateSubmitted: (date) {
@@ -96,47 +139,7 @@ class _CreateScreenState extends State<CreateScreen> {
                     child: Text("pick a time: ${selectedTime.format(context)}")
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      if(selectedDate == null || patient == "" || doctor == "") {
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Invalid Form'),
-                            content: const Text('Names cannot be empty, and date must be reasonable'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                      else {
-                        createAppointment(
-                          http.Client(),
-                            Appointment(
-                              "no id",
-                            patient,
-                            doctor,
-                            "${selectedDate!.toLocal()}".split(' ')[0],
-                            selectedTime.format(context))
-                        );
-                      Navigator.pop(context);
-
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Created'),
-                            content: const Text('Appointment created'),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () {Navigator.pop(context, 'OK');},
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );}},
+                    onPressed: _submitForm,
                     child: const Text("Submit"),
                   ),
                 ],
