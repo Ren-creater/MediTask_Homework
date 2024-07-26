@@ -1,4 +1,4 @@
-# MediTask Take Away Homework
+# Medical Appointment Booking App
 
 FRONTEND: flutter
 
